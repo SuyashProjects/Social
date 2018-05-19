@@ -135,7 +135,11 @@ a.facebook {
          'password': password
        },
        dataType: 'json',
-       success: function (data){}
+       success: function (data){
+         if (data.is_taken) {
+           window.alert("A user with this username already exists.");
+         }
+       }
      });
    });
  </script>
