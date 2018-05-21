@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.EmailField()
     username = models.CharField(max_length=50)
@@ -12,24 +13,21 @@ class User(models.Model):
         return self.name
 
 class Post(models.Model):
+    id = models.AutoField(primary_key=True)
+    url = models.URLField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(
+    title = models.CharField(max_length=50)
+    description = models.TextField(max_length=100)
+    image = models.ImageField(upload_to = 'static/', default = 'static/no-img.jpg')
+    created_at = models.DateTimeField(
             default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
 
     def __str__(self):
         return self.title
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments')
-    author = models.CharField(max_length=200)
+    author = models.CharField(max_length=50)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)

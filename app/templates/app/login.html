@@ -125,22 +125,21 @@ a.facebook {
 			</div>
 {% endblock %}
 {% block javascript %}
-<script>
-    $("#id_password").change(function () {
-      console.log = $(this).val();
-
-     $.ajax({
-       url: '/ajax/validate_password/',
-       data: {
-         'password': password
-       },
-       dataType: 'json',
-       success: function (data){
-         if (data.is_taken) {
-           window.alert("A user with this username already exists.");
-         }
-       }
-     });
-   });
- </script>
+ <script>
+   $("#id_password").change(function () {
+     var password = $(this).val();
+    $.ajax({
+      url: '/ajax/validate_password/',
+      data: {
+        'password': password
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.correct) {
+          window.alert("Wrong Password");
+        }
+      }
+    });
+  });
+</script>
 {% endblock %}
