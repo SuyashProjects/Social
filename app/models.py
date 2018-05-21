@@ -14,20 +14,17 @@ class User(models.Model):
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.URLField(max_length=100)
+    url = models.URLField(max_length=100,null=True,blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
-    description = models.TextField(max_length=100)
+    description = models.TextField(max_length=100,blank=True,null=True)
     image = models.ImageField(upload_to = 'static/', default = 'static/no-img.jpg')
-    created_at = models.DateTimeField(
-            default=timezone.now)
-
+    created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.title
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='comments')
-    author = models.CharField(max_length=50)
+    author = models.ForeignKey(User)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
@@ -40,7 +37,6 @@ class Comment(models.Model):
         return self.text
 
 class Like(models.Model):
-    post = models.ForeignKey(Post, related_name='likes')
     user = models.ForeignKey(User)
     created_date = models.DateTimeField(default=timezone.now)
     liked = models.BooleanField(default=False)
@@ -53,7 +49,6 @@ class Like(models.Model):
         return self.created_date
 
 class Dislike(models.Model):
-    post = models.ForeignKey(Post, related_name='dislikes')
     user = models.ForeignKey(User)
     created_date = models.DateTimeField(default=timezone.now)
     disliked = models.BooleanField(default=False)
