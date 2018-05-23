@@ -96,7 +96,7 @@ a.facebook {
 					<div class="box box-border">
 						<div class="box-body">
 							<h4>Login</h4>
-							<form method="POST">{% csrf_token %}
+							<form method="POST" id="post-form">{% csrf_token %}
 								<div class="form-group">
 									<label>Username</label>
 									<input type="text" name="username" class="form-control">
@@ -126,8 +126,8 @@ a.facebook {
 {% endblock %}
 {% block javascript %}
  <script>
-   $("#id_password").change(function () {
-     var password = $(this).val();
+   $("#input").change(function () {
+     var password = $('#input').val();
     $.ajax({
       url: '/ajax/validate_password/',
       data: {
@@ -135,7 +135,7 @@ a.facebook {
       },
       dataType: 'json',
       success: function (data) {
-        if (data.correct) {
+        if (data.is_taken == "False" ) {
           window.alert("Wrong Password");
         }
       }

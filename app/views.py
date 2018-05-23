@@ -40,8 +40,13 @@ def validate_username(request):
     return JsonResponse(data)
 
 def validate_password(request):
-    password = request.GET.get('passoword', None)
-    data = {
-         'correct': User.objects.filter(username__iexact=username).exists()
-     }
+    password = request.GET.get('password', None)
+    if (User.objects.filter(password=password).exists()):
+        data = {
+        'is_taken' : 'True'
+        }
+    else:
+        data = {
+        'is_taken' : 'False'
+        }
     return JsonResponse(data)
