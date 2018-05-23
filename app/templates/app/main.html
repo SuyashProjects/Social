@@ -24,7 +24,7 @@
     border-color: #d8091e;
   }
   .box-wrapper {
-      width: 400px;
+      width: 500px;
       margin: 0 auto;
       margin-top: 15%;
   }
@@ -53,7 +53,7 @@
 				<div class="box-wrapper">
 					<div class="box box-border">
 						<div class="box-body">
-							<h4>Hi! Welcome {{ user.username }}</h4>
+							<h4>Hi! Welcome {{ user.get_full_name|default:user.username }}</h4>
               <div class="form-group text-right">
                 <a href="/logout"><button class="btn btn-primary btn-block">Logout</button></a>
               </div>

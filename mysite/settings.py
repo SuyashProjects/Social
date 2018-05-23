@@ -71,11 +71,13 @@ TEMPLATES = [
     },
 ]
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
-SOCIAL_AUTH_FACEBOOK_KEY = '1919615561383100'
-SOCIAL_AUTH_FACEBOOK_SECRET = '3699c05bda502175440411a9e60b855b'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '684002663833-r4adl9o8cm7qrda85nk49fau1su7q3ir.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xl5Mh-KWRV1uu3FpYDO48IUa'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'main'
