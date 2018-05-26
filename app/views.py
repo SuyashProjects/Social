@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.shortcuts import redirect, get_object_or_404
 
 
 @csrf_exempt
@@ -30,7 +31,11 @@ def reg(request):
     return render_to_response( 'app/reg.html',{'form':form}, RequestContext(request))
 @csrf_exempt
 def main(request):
-    return render(request, 'app/main.html')
+    view = ''
+    username = request.user.username
+    view = User.objects.filter(username=request.user.username).values('image')
+    print(view)
+    return render_to_response('app/main.html', {'request': request,'user': request.user,'view': view}, RequestContext(request))
 
 def validate_username(request):
     username = request.GET.get('username', None)

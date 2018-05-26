@@ -54,6 +54,12 @@
 					<div class="box box-border">
 						<div class="box-body">
 							<h4>Hi! Welcome {{ user.get_full_name|default:user.username }}</h4>
+              <div class="post">
+                  <h5>{{ view.name }}</h5>
+                  <h5>Image</h5>
+                  <img src ="{{ view.image }}">
+                  <p>{{ view.username }}</p>
+              </div>
               <div class="form-group text-right">
                 <a href="/logout"><button class="btn btn-primary btn-block">Logout</button></a>
               </div>
